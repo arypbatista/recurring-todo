@@ -4,12 +4,14 @@ import { useState } from "react";
 import { MonthNavigation } from "@/components/month-navigation";
 import { RecurringList } from "@/components/recurring-list";
 import { AddEditDialog } from "@/components/add-edit-dialog";
+import { BulkAddDialog } from "@/components/bulk-add-dialog";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, Download } from "lucide-react";
 import { RecurringTodo } from "@/types";
 
 export default function Home() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isBulkDialogOpen, setIsBulkDialogOpen] = useState(false);
   const [editingTodo, setEditingTodo] = useState<RecurringTodo | null>(null);
 
   const handleOpenAddDialog = () => {
@@ -25,8 +27,12 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground pb-24">
       <header className="border-b bg-card">
-        <div className="container max-w-2xl mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold text-center tracking-tight">Recurring TO-DOs</h1>
+        <div className="container max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
+          <h1 className="text-2xl font-bold tracking-tight">Recurring TO-DOs</h1>
+          <Button variant="outline" size="sm" onClick={() => setIsBulkDialogOpen(true)}>
+            <Download className="w-4 h-4 mr-2" />
+            Import
+          </Button>
         </div>
       </header>
 
@@ -54,6 +60,11 @@ export default function Home() {
         isOpen={isDialogOpen} 
         onOpenChange={setIsDialogOpen} 
         editTodo={editingTodo} 
+      />
+
+      <BulkAddDialog 
+        isOpen={isBulkDialogOpen}
+        onOpenChange={setIsBulkDialogOpen}
       />
     </div>
   );
