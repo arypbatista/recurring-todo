@@ -108,7 +108,7 @@ export function RecurringList({ onEdit }: RecurringListProps) {
               </div>
               <div>
                 <span className="text-[10px] font-semibold text-emerald-600/70 uppercase tracking-wider block">{t('inbound')}</span>
-                <span className="text-lg font-bold text-emerald-700 leading-tight">${totalInbound.toFixed(2)}</span>
+                <span className="text-lg font-bold text-emerald-700 leading-tight">${totalInbound.toFixed(0)}</span>
               </div>
             </div>
           )}
@@ -119,7 +119,7 @@ export function RecurringList({ onEdit }: RecurringListProps) {
               </div>
               <div>
                 <span className="text-[10px] font-semibold text-orange-600/70 uppercase tracking-wider block">{t('outbound')}</span>
-                <span className="text-lg font-bold text-orange-700 leading-tight">${totalOutbound.toFixed(2)}</span>
+                <span className="text-lg font-bold text-orange-700 leading-tight">${totalOutbound.toFixed(0)}</span>
               </div>
             </div>
           )}

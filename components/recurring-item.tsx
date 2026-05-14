@@ -98,7 +98,7 @@ export function RecurringItem({ index, occurrence, recurringTodo, onEdit }: Recu
                 }`}
             >
               {recurringTodo.direction === "inbound" ? "+" : ""}
-              ${recurringTodo.amount.toFixed(2)}
+              ${recurringTodo.amount.toFixed(0)}
             </span>
           )}
           <Button
