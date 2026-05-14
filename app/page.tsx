@@ -39,8 +39,8 @@ export default function Home() {
       </div>
 
       <div className="relative z-10">
-        <header className="pt-8 pb-2">
-          <div className="container max-w-2xl mx-auto px-5 flex items-center justify-between">
+        <header className="pt-12 md:pt-8 pb-2">
+          <div className="container max-w-2xl mx-auto px-5 flex flex-col md:flex-row gap-4 items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold tracking-tight text-foreground leading-tight">
                 <span className="animate-float inline-block mr-1.5">🌟</span>
@@ -97,17 +97,17 @@ export default function Home() {
       />
 
       {/* Footer disclaimer */}
-      <footer className="relative z-10 pb-6 pt-12 text-center">
-        <p className="text-sm text-muted-foreground/70 flex items-center justify-center gap-1.5">
+      <footer className="relative z-10 pb-6 pt-12 text-center px-4">
+        <p className="text-sm text-muted-foreground/70 flex justify-center gap-1.5">
           <span>🔒</span>
           {t('privacyNote')}
         </p>
-        <p>
-          <Link href="https://github.com/arypbatista/recurring-todo" target="_blank">
-            <Button variant="link" asChild>
+        <p className="mt-4">
+          <Button variant="link" className="underline" asChild>
+            <Link href="https://github.com/arypbatista/recurring-todo" target="_blank">
               Github
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </p>
       </footer>
     </div>
