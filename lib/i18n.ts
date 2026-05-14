@@ -56,6 +56,7 @@ const translations: Record<Locale, Record<string, string>> = {
     importNItems: "Import {count} Items",
     day: "Day",
     privacyNote: "Your data is stored locally in your browser. Nothing is uploaded to the cloud.",
+    tooltipTitle: "Add an item",
   },
   es: {
     appTitle: "Tareas Recurrentes",
@@ -105,6 +106,7 @@ const translations: Record<Locale, Record<string, string>> = {
     importNItems: "Importar {count} Elementos",
     day: "Día",
     privacyNote: "Tus datos se almacenan localmente en tu navegador. Nada se sube a la nube.",
+    tooltipTitle: "Agregar un item",
   },
   pt: {
     appTitle: "Tarefas Recorrentes",
@@ -154,6 +156,7 @@ const translations: Record<Locale, Record<string, string>> = {
     importNItems: "Importar {count} Itens",
     day: "Dia",
     privacyNote: "Seus dados são armazenados localmente no seu navegador. Nada é enviado para a nuvem.",
+    tooltipTitle: "Adicionar um item",
   },
 };
 

@@ -3,8 +3,9 @@ import { Baloo_2, Geist_Mono, Geist } from "next/font/google";
 import "./globals.css";
 import { I18nProvider } from "@/components/i18n-provider";
 import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
 const baloo = Baloo_2({
   variable: "--font-baloo",
@@ -33,7 +34,9 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <I18nProvider>
-          {children}
+          <TooltipProvider>
+            {children}
+          </TooltipProvider>
         </I18nProvider>
       </body>
     </html>

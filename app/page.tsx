@@ -11,6 +11,7 @@ import { RecurringTodo } from "@/types";
 import { useI18n } from "@/components/i18n-provider";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import Link from "next/link";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function Home() {
   const { t } = useI18n()
@@ -18,10 +19,12 @@ export default function Home() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isBulkDialogOpen, setIsBulkDialogOpen] = useState(false);
   const [editingTodo, setEditingTodo] = useState<RecurringTodo | null>(null);
+  const [tooltipVisible, setTooltipVisible] = useState(true);
 
   const handleOpenAddDialog = () => {
     setEditingTodo(null);
     setIsDialogOpen(true);
+    setTooltipVisible(false)
   };
 
   const handleOpenEditDialog = (todo: RecurringTodo) => {
@@ -75,14 +78,21 @@ export default function Home() {
 
       {/* Floating Action Button */}
       <div className="fixed bottom-8 right-8 z-50">
-        <Button
-          size="icon"
-          className="h-14 w-14 rounded-full shadow-xl bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-200 hover:scale-105 animate-fab-pulse"
-          onClick={handleOpenAddDialog}
-        >
-          <Plus className="h-6 w-6" />
-          <span className="sr-only">{t('addRecurringTask')}</span>
-        </Button>
+        <Tooltip open={tooltipVisible} >
+          <TooltipTrigger asChild>
+            <Button
+              size="icon"
+              className="h-14 w-14 rounded-full shadow-xl bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-200 hover:scale-105 animate-fab-pulse"
+              onClick={handleOpenAddDialog}
+            >
+              <Plus className="h-6 w-6" />
+              <span className="sr-only">{t('addRecurringTask')}</span>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="left">
+            <p>{t('tooltipTitle')}</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
 
       <AddEditDialog
