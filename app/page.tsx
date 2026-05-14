@@ -10,6 +10,7 @@ import { Plus, Download } from "lucide-react";
 import { RecurringTodo } from "@/types";
 import { useI18n } from "@/components/i18n-provider";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import Link from "next/link";
 
 export default function Home() {
   const { t } = useI18n()
@@ -100,6 +101,13 @@ export default function Home() {
         <p className="text-sm text-muted-foreground/70 flex items-center justify-center gap-1.5">
           <span>🔒</span>
           {t('privacyNote')}
+        </p>
+        <p>
+          <Button variant="link" asChild>
+            <Link href="https://github.com/arypbatista/recurring-todo" target="_blank">
+              Github
+            </Link>
+          </Button>
         </p>
       </footer>
     </div>
