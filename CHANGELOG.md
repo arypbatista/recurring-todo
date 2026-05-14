@@ -2,7 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [0.4.0] - 2026-05-14
+
+### Added
+- **Polished storybook aesthetic** — Complete design overhaul guided by the `frontend-design` skill for a production-grade, memorable interface.
+  - Gradient mesh background with floating pastel blobs for atmospheric depth.
+  - Glassmorphism effects on navigation buttons and cards (`backdrop-blur-sm`).
+  - Staggered entrance animations on list items with hover lift effects.
+  - Pulsing glow animation on the floating action button.
+  - Directional icons (↙ inbound, ↗ outbound) in monthly summary cards.
+  - Refined empty state with animated party popper icon.
+  - Polished dialog with frosted glass backdrop and emoji-accented titles.
+- **Baloo 2 font** — Switched to Baloo 2, a distinctively bubbly display font that feels handcrafted and toy-like.
+- **Expanded pastel palette** — Six rich pastel themes (violet, rose, amber, emerald, sky, fuchsia) with coordinated edit buttons, checkbox borders, and card backgrounds.
+
+### Changed
+- Outbound summary card uses friendly orange instead of red/rose.
+- Summary cards redesigned with icon + label + value layout instead of centered text.
+- Category badges now pill-shaped with translucent white background.
+- Due date format simplified to `· Due 15` instead of `(Due: 15)`.
+- Section headers use count badges instead of inline numbers.
+- Completed section accordion styled as a translucent emerald pill.
+
+---
+
+## [0.3.0] - 2026-05-14
 
 ### Added
 - **Playful pastel UI overhaul** — Completely restyled the app with a fun, pastel aesthetic inspired by a hand-crafted mockup.

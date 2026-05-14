@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Nunito, Geist_Mono } from "next/font/google";
+import { Baloo_2, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const nunito = Nunito({
-  variable: "--font-nunito",
+const baloo = Baloo_2({
+  variable: "--font-baloo",
   subsets: ["latin"],
 });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${nunito.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${baloo.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

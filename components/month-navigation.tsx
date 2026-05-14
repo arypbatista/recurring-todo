@@ -24,30 +24,36 @@ export function MonthNavigation() {
   };
 
   return (
-    <div className="flex items-center justify-center gap-4 py-4">
-      <Button variant="outline" size="icon" className="rounded-full border-2 border-indigo-200 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 h-10 w-10" onClick={handlePrev}>
+    <div className="flex items-center justify-center gap-5 py-3">
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="rounded-full h-10 w-10 bg-card/60 backdrop-blur-sm border border-border/50 text-foreground hover:bg-card hover:scale-105 transition-all duration-200 shadow-sm"
+        onClick={handlePrev}
+      >
         <ChevronLeft className="h-5 w-5" />
       </Button>
       
-      <div className="flex flex-col items-center">
-        <div className="flex items-center gap-2">
-          <span className="text-pink-300">✧</span>
-          <h2 className="text-xl font-bold text-indigo-900">
-            {format(currentDate, "MMMM yyyy")}
-          </h2>
-          <span className="text-emerald-300">✦</span>
-        </div>
+      <div className="flex flex-col items-center min-w-[180px]">
+        <h2 className="text-xl font-bold text-foreground">
+          {format(currentDate, "MMMM yyyy")}
+        </h2>
         {currentPeriod !== format(new Date(), "yyyy-MM") && (
           <button 
             onClick={handleToday}
-            className="text-xs text-indigo-400 hover:text-indigo-600 hover:underline mt-1"
+            className="text-xs text-primary/70 hover:text-primary hover:underline mt-0.5 transition-colors duration-150"
           >
             Back to current month
           </button>
         )}
       </div>
 
-      <Button variant="outline" size="icon" className="rounded-full border-2 border-indigo-200 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 h-10 w-10" onClick={handleNext}>
+      <Button 
+        variant="ghost" 
+        size="icon" 
+        className="rounded-full h-10 w-10 bg-card/60 backdrop-blur-sm border border-border/50 text-foreground hover:bg-card hover:scale-105 transition-all duration-200 shadow-sm"
+        onClick={handleNext}
+      >
         <ChevronRight className="h-5 w-5" />
       </Button>
     </div>

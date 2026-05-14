@@ -85,10 +85,12 @@ export function AddEditDialog({ isOpen, onOpenChange, editTodo }: AddEditDialogP
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] rounded-3xl border-2 border-border/50 bg-background/95 backdrop-blur-lg">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>{editTodo ? "Edit Recurring Task" : "Add Recurring Task"}</DialogTitle>
+            <DialogTitle className="text-lg font-bold">
+              {editTodo ? "✏️ Edit Task" : "✨ New Task"}
+            </DialogTitle>
           </DialogHeader>
           
           <div className="grid gap-4 py-4">
@@ -166,11 +168,11 @@ export function AddEditDialog({ isOpen, onOpenChange, editTodo }: AddEditDialogP
             </div>
           </div>
           
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+          <DialogFooter className="gap-2">
+            <Button type="button" variant="outline" className="rounded-full" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button type="submit">
+            <Button type="submit" className="rounded-full">
               {editTodo ? "Save Changes" : "Add Task"}
             </Button>
           </DialogFooter>

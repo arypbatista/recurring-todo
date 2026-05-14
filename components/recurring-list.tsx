@@ -6,6 +6,7 @@ import { RecurringTodo } from "@/types";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { ArrowDownLeft, ArrowUpRight, Sparkles, PartyPopper } from "lucide-react";
 
 interface RecurringListProps {
   onEdit: (todo: RecurringTodo) => void;
@@ -20,7 +21,12 @@ export function RecurringList({ onEdit }: RecurringListProps) {
   }, []);
 
   if (!isMounted) {
-    return <div className="py-8 text-center text-muted-foreground">Loading...</div>;
+    return (
+      <div className="py-12 text-center text-muted-foreground">
+        <Sparkles className="w-6 h-6 mx-auto mb-2 animate-float text-primary/50" />
+        <span className="text-sm">Loading...</span>
+      </div>
+    );
   }
 
   const currentMonthStr = format(new Date(), "yyyy-MM");
@@ -88,31 +94,50 @@ export function RecurringList({ onEdit }: RecurringListProps) {
     });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
+      {/* Monthly Summary */}
       {hasAmounts && (
-        <div className={`grid gap-4 mb-2 ${totalInbound > 0 && totalOutbound > 0 ? "grid-cols-2" : "grid-cols-1"}`}>
+        <div className={`grid gap-3 ${totalInbound > 0 && totalOutbound > 0 ? "grid-cols-2" : "grid-cols-1"}`}>
           {totalInbound > 0 && (
-            <div className="bg-card border rounded-xl p-3 flex flex-col items-center justify-center shadow-sm">
-              <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider mb-0.5">Inbound</span>
-              <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400">${totalInbound.toFixed(2)}</span>
+            <div className="bg-emerald-50/70 backdrop-blur-sm border-2 border-emerald-200/50 rounded-2xl p-3 flex items-center gap-3 shadow-sm">
+              <div className="h-9 w-9 rounded-xl bg-emerald-100 flex items-center justify-center shrink-0">
+                <ArrowDownLeft className="w-4 h-4 text-emerald-600" />
+              </div>
+              <div>
+                <span className="text-[10px] font-semibold text-emerald-600/70 uppercase tracking-wider block">Inbound</span>
+                <span className="text-lg font-bold text-emerald-700 leading-tight">${totalInbound.toFixed(2)}</span>
+              </div>
             </div>
           )}
           {totalOutbound > 0 && (
-            <div className="bg-card border rounded-xl p-3 flex flex-col items-center justify-center shadow-sm">
-              <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider mb-0.5">Outbound</span>
-              <span className="text-lg font-bold text-foreground">${totalOutbound.toFixed(2)}</span>
+            <div className="bg-orange-50/70 backdrop-blur-sm border-2 border-orange-200/50 rounded-2xl p-3 flex items-center gap-3 shadow-sm">
+              <div className="h-9 w-9 rounded-xl bg-orange-100 flex items-center justify-center shrink-0">
+                <ArrowUpRight className="w-4 h-4 text-orange-600" />
+              </div>
+              <div>
+                <span className="text-[10px] font-semibold text-orange-600/70 uppercase tracking-wider block">Outbound</span>
+                <span className="text-lg font-bold text-orange-700 leading-tight">${totalOutbound.toFixed(2)}</span>
+              </div>
             </div>
           )}
         </div>
       )}
 
+      {/* Pending Section */}
       <div>
-        <h3 className="text-sm font-bold text-indigo-900 mb-4 uppercase tracking-wider underline decoration-wavy decoration-yellow-400 underline-offset-4">
-          Pending ({pendingItems.length})
-        </h3>
+        <div className="flex items-center gap-2 mb-3">
+          <h3 className="text-xs font-bold text-foreground/60 uppercase tracking-widest">
+            Pending
+          </h3>
+          <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+            {pendingItems.length}
+          </span>
+        </div>
         {pendingItems.length === 0 ? (
-          <div className="text-center py-6 text-muted-foreground border border-dashed rounded-lg bg-card/50">
-            No pending items. You're all caught up!
+          <div className="text-center py-10 text-muted-foreground border-2 border-dashed border-border/50 rounded-2xl bg-card/30 backdrop-blur-sm">
+            <PartyPopper className="w-8 h-8 mx-auto mb-2 text-primary/40 animate-float" />
+            <p className="font-semibold">All caught up!</p>
+            <p className="text-sm opacity-60 mt-0.5">Nothing pending right now</p>
           </div>
         ) : (
           <div>
@@ -129,13 +154,19 @@ export function RecurringList({ onEdit }: RecurringListProps) {
         )}
       </div>
 
+      {/* Completed Section */}
       {completedItems.length > 0 && (
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="completed" className="border-none">
-            <AccordionTrigger className="hover:no-underline py-2 px-4 rounded-full bg-emerald-100 text-emerald-700 text-sm font-bold uppercase tracking-wider mt-4">
-              Completed ({completedItems.length})
+            <AccordionTrigger className="hover:no-underline py-2 px-4 rounded-full bg-emerald-50/70 border border-emerald-200/50 text-emerald-700 text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
+              <div className="flex items-center gap-2">
+                Completed
+                <span className="bg-emerald-200/50 text-emerald-800 px-2 py-0.5 rounded-full text-[10px]">
+                  {completedItems.length}
+                </span>
+              </div>
             </AccordionTrigger>
-            <AccordionContent className="pt-4">
+            <AccordionContent className="pt-3">
               {completedItems.map(({ occurrence, todo }, index) => (
                 <RecurringItem 
                   key={occurrence.id} 
