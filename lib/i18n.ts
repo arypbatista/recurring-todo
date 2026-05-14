@@ -71,7 +71,7 @@ const translations: Record<Locale, Record<string, string>> = {
     nothingPending: "Nada pendiente por ahora",
 
     overdue: "Vencido",
-    due: "Vence",
+    due: "Vence el",
 
     inbound: "Ingreso",
     outbound: "Egreso",
@@ -121,7 +121,7 @@ const translations: Record<Locale, Record<string, string>> = {
     nothingPending: "Nada pendente no momento",
 
     overdue: "Atrasado",
-    due: "Vence",
+    due: "Vence el",
 
     inbound: "Entrada",
     outbound: "Saída",
