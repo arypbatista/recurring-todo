@@ -69,9 +69,9 @@ export function RecurringList({ onEdit }: RecurringListProps) {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div>
-        <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wider">
+        <h3 className="text-sm font-medium text-muted-foreground mb-2 uppercase tracking-wider">
           Pending ({pendingItems.length})
         </h3>
         {pendingItems.length === 0 ? (
@@ -98,7 +98,7 @@ export function RecurringList({ onEdit }: RecurringListProps) {
             <AccordionTrigger className="hover:no-underline py-2 text-sm font-medium text-muted-foreground uppercase tracking-wider">
               Completed ({completedItems.length})
             </AccordionTrigger>
-            <AccordionContent className="pt-4">
+            <AccordionContent className="pt-2">
               {completedItems.map(({ occurrence, todo }) => (
                 <RecurringItem 
                   key={occurrence.id} 

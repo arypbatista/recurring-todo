@@ -28,9 +28,9 @@ export function RecurringItem({ occurrence, recurringTodo, onEdit }: RecurringIt
         recurringTodo.dueDay < new Date().getDate()));
 
   return (
-    <Card className={`mb-3 transition-colors ${isPending ? "bg-card" : "bg-muted/50 opacity-80"}`}>
-      <CardContent className="p-4 flex items-center justify-between">
-        <div className="flex items-center space-x-4">
+    <Card className={`mb-2 transition-colors ${isPending ? "bg-card" : "bg-muted/50 opacity-80"}`}>
+      <CardContent className="flex items-center justify-between">
+        <div className="flex items-center space-x-3">
           <Checkbox
             checked={occurrence.status === "paid"}
             onCheckedChange={() => toggleOccurrenceStatus(occurrence.id)}
@@ -43,12 +43,12 @@ export function RecurringItem({ occurrence, recurringTodo, onEdit }: RecurringIt
               </h3>
               {isOverdue && <Badge variant="destructive" className="text-[10px] px-1 py-0 h-4">Overdue</Badge>}
             </div>
-            
+
             <div className="flex items-center text-xs text-muted-foreground mt-1 space-x-3">
               {recurringTodo.category && (
                 <span className="bg-secondary px-1.5 py-0.5 rounded-sm">{recurringTodo.category}</span>
               )}
-              
+
               <span className="flex items-center">
                 <Calendar className="w-3 h-3 mr-1" />
                 {occurrence.period}
