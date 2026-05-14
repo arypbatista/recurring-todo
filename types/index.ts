@@ -6,6 +6,8 @@ export interface RecurringTodo {
   category?: string;
   recurrence: RecurrenceType;
   dueDay?: number; // 1-31
+  amount?: number;
+  direction?: "inbound" | "outbound";
   active: boolean;
   createdAt: string; // ISO string
 }

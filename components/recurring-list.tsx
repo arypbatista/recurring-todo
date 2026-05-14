@@ -68,8 +68,44 @@ export function RecurringList({ onEdit }: RecurringListProps) {
     return new Date(a.todo.createdAt).getTime() - new Date(b.todo.createdAt).getTime();
   });
 
+  // Calculate monthly summary
+  let totalInbound = 0;
+  let totalOutbound = 0;
+  let hasAmounts = false;
+
+  occurrences
+    .filter((o) => o.period === currentPeriod)
+    .forEach((o) => {
+      const todo = todoMap.get(o.recurringTodoId);
+      if (todo && todo.amount !== undefined) {
+        hasAmounts = true;
+        if (todo.direction === "inbound") {
+          totalInbound += todo.amount;
+        } else {
+          totalOutbound += todo.amount;
+        }
+      }
+    });
+
   return (
     <div className="space-y-4">
+      {hasAmounts && (
+        <div className={`grid gap-4 mb-2 ${totalInbound > 0 && totalOutbound > 0 ? "grid-cols-2" : "grid-cols-1"}`}>
+          {totalInbound > 0 && (
+            <div className="bg-card border rounded-xl p-3 flex flex-col items-center justify-center shadow-sm">
+              <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider mb-0.5">Inbound</span>
+              <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400">${totalInbound.toFixed(2)}</span>
+            </div>
+          )}
+          {totalOutbound > 0 && (
+            <div className="bg-card border rounded-xl p-3 flex flex-col items-center justify-center shadow-sm">
+              <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider mb-0.5">Outbound</span>
+              <span className="text-lg font-bold text-foreground">${totalOutbound.toFixed(2)}</span>
+            </div>
+          )}
+        </div>
+      )}
+
       <div>
         <h3 className="text-sm font-medium text-muted-foreground mb-2 uppercase tracking-wider">
           Pending ({pendingItems.length})

@@ -58,9 +58,23 @@ export function RecurringItem({ occurrence, recurringTodo, onEdit }: RecurringIt
           </div>
         </div>
 
-        <Button variant="ghost" size="icon" onClick={() => onEdit(recurringTodo)}>
-          <Edit2 className="w-4 h-4 text-muted-foreground" />
-        </Button>
+        <div className="flex items-center space-x-3">
+          {recurringTodo.amount !== undefined && (
+            <span
+              className={`font-medium ${
+                recurringTodo.direction === "inbound"
+                  ? "text-emerald-600 dark:text-emerald-400"
+                  : "text-foreground"
+              }`}
+            >
+              {recurringTodo.direction === "inbound" ? "+" : ""}
+              ${recurringTodo.amount.toFixed(2)}
+            </span>
+          )}
+          <Button variant="ghost" size="icon" onClick={() => onEdit(recurringTodo)}>
+            <Edit2 className="w-4 h-4 text-muted-foreground" />
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );
