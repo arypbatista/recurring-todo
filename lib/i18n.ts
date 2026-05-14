@@ -55,6 +55,7 @@ const translations: Record<Locale, Record<string, string>> = {
     noMatchingItems: "No matching items found.",
     importNItems: "Import {count} Items",
     day: "Day",
+    privacyNote: "Your data is stored locally in your browser. Nothing is uploaded to the cloud.",
   },
   es: {
     appTitle: "Tareas Recurrentes",
@@ -103,6 +104,7 @@ const translations: Record<Locale, Record<string, string>> = {
     noMatchingItems: "No se encontraron elementos.",
     importNItems: "Importar {count} Elementos",
     day: "Día",
+    privacyNote: "Tus datos se almacenan localmente en tu navegador. Nada se sube a la nube.",
   },
   pt: {
     appTitle: "Tarefas Recorrentes",
@@ -151,6 +153,7 @@ const translations: Record<Locale, Record<string, string>> = {
     noMatchingItems: "Nenhum item encontrado.",
     importNItems: "Importar {count} Itens",
     day: "Dia",
+    privacyNote: "Seus dados são armazenados localmente no seu navegador. Nada é enviado para a nuvem.",
   },
 };
 

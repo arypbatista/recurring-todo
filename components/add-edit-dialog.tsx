@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useI18n } from "./i18n-provider";
 
 interface AddEditDialogProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ interface AddEditDialogProps {
 }
 
 export function AddEditDialog({ isOpen, onOpenChange, editTodo }: AddEditDialogProps) {
+  const { t } = useI18n();
   const addRecurringTodo = useStore((state) => state.addRecurringTodo);
   const editRecurringTodo = useStore((state) => state.editRecurringTodo);
 
@@ -79,7 +81,7 @@ export function AddEditDialog({ isOpen, onOpenChange, editTodo }: AddEditDialogP
       };
       addRecurringTodo(newTodo);
     }
-    
+
     onOpenChange(false);
   };
 
@@ -89,34 +91,34 @@ export function AddEditDialog({ isOpen, onOpenChange, editTodo }: AddEditDialogP
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle className="text-lg font-bold">
-              {editTodo ? "✏️ Edit Task" : "✨ New Task"}
+              {editTodo ? t('editTask') : t('newTask')}
             </DialogTitle>
           </DialogHeader>
-          
+
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
-              <Label htmlFor="title">Title <span className="text-destructive">*</span></Label>
+              <Label htmlFor="title">{t('titleLabel')} <span className="text-destructive">*</span></Label>
               <Input
                 id="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="e.g., Rent, Internet"
+                placeholder={t('titlePlaceholder')}
                 required
               />
             </div>
-            
+
             <div className="grid gap-2">
-              <Label htmlFor="category">Category (Optional)</Label>
+              <Label htmlFor="category">{t('categoryLabel')}</Label>
               <Input
                 id="category"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                placeholder="e.g., Housing, Utilities"
+                placeholder={t('categoryPlaceholder')}
               />
             </div>
-            
+
             <div className="grid gap-2">
-              <Label htmlFor="dueDay">Due Day (1-31, Optional)</Label>
+              <Label htmlFor="dueDay">{t('dueDayLabel')}</Label>
               <Input
                 id="dueDay"
                 type="number"
@@ -124,13 +126,13 @@ export function AddEditDialog({ isOpen, onOpenChange, editTodo }: AddEditDialogP
                 max="31"
                 value={dueDay}
                 onChange={(e) => setDueDay(e.target.value)}
-                placeholder="e.g., 5"
+                placeholder={t('dueDayPlaceholder')}
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="amount">Amount (Optional)</Label>
+                <Label htmlFor="amount">{t('amountLabel')}</Label>
                 <Input
                   id="amount"
                   type="number"
@@ -138,19 +140,19 @@ export function AddEditDialog({ isOpen, onOpenChange, editTodo }: AddEditDialogP
                   step="0.01"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  placeholder="e.g., 50.00"
+                  placeholder={t('amountPlaceholder')}
                 />
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="direction">Direction</Label>
+                <Label htmlFor="direction">{t('directionLabel')}</Label>
                 <Select value={direction} onValueChange={(v) => setDirection(v as "inbound" | "outbound")}>
                   <SelectTrigger id="direction">
                     <SelectValue placeholder="Direction" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="outbound">Outbound (Expense)</SelectItem>
-                    <SelectItem value="inbound">Inbound (Income)</SelectItem>
+                    <SelectItem value="outbound">{t('outboundExpense')}</SelectItem>
+                    <SelectItem value="inbound">{t('inboundIncome')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -163,17 +165,17 @@ export function AddEditDialog({ isOpen, onOpenChange, editTodo }: AddEditDialogP
                 onCheckedChange={(checked) => setActive(checked as boolean)}
               />
               <Label htmlFor="active" className="font-normal">
-                Active (generates monthly occurrences)
+                {t('activeLabel')}
               </Label>
             </div>
           </div>
-          
+
           <DialogFooter className="gap-2">
             <Button type="button" variant="outline" className="rounded-full" onClick={() => onOpenChange(false)}>
-              Cancel
+              {t('cancel')}
             </Button>
             <Button type="submit" className="rounded-full">
-              {editTodo ? "Save Changes" : "Add Task"}
+              {editTodo ? t('saveChanges') : t('addTaskButton')}
             </Button>
           </DialogFooter>
         </form>

@@ -7,13 +7,16 @@ import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowDownLeft, ArrowUpRight, Sparkles, PartyPopper } from "lucide-react";
+import { useI18n } from "./i18n-provider";
 
 interface RecurringListProps {
   onEdit: (todo: RecurringTodo) => void;
 }
 
 export function RecurringList({ onEdit }: RecurringListProps) {
+  const { t } = useI18n();
   const { occurrences, recurringTodos, currentPeriod } = useStore();
+
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -40,14 +43,14 @@ export function RecurringList({ onEdit }: RecurringListProps) {
   const pendingItems = occurrences.filter(
     (o) => o.status === "pending" && o.period <= currentPeriod
   ).map(o => ({ occurrence: o, todo: todoMap.get(o.recurringTodoId)! }))
-   .filter(item => item.todo !== undefined); // safeguard
+    .filter(item => item.todo !== undefined); // safeguard
 
   // Sort pending items
   pendingItems.sort((a, b) => {
     // 1. Overdue first
     const aOverdue = a.occurrence.period < currentMonthStr || (a.occurrence.period === currentMonthStr && a.todo.dueDay && a.todo.dueDay < todayDate);
     const bOverdue = b.occurrence.period < currentMonthStr || (b.occurrence.period === currentMonthStr && b.todo.dueDay && b.todo.dueDay < todayDate);
-    
+
     if (aOverdue && !bOverdue) return -1;
     if (!aOverdue && bOverdue) return 1;
 
@@ -64,7 +67,7 @@ export function RecurringList({ onEdit }: RecurringListProps) {
   const completedItems = occurrences.filter(
     (o) => o.status === "paid" && o.period === currentPeriod
   ).map(o => ({ occurrence: o, todo: todoMap.get(o.recurringTodoId)! }))
-   .filter(item => item.todo !== undefined);
+    .filter(item => item.todo !== undefined);
 
   // Sort completed items similarly (Due date DESC, then creation order)
   completedItems.sort((a, b) => {
@@ -104,7 +107,7 @@ export function RecurringList({ onEdit }: RecurringListProps) {
                 <ArrowDownLeft className="w-4 h-4 text-emerald-600" />
               </div>
               <div>
-                <span className="text-[10px] font-semibold text-emerald-600/70 uppercase tracking-wider block">Inbound</span>
+                <span className="text-[10px] font-semibold text-emerald-600/70 uppercase tracking-wider block">{t('inbound')}</span>
                 <span className="text-lg font-bold text-emerald-700 leading-tight">${totalInbound.toFixed(2)}</span>
               </div>
             </div>
@@ -115,7 +118,7 @@ export function RecurringList({ onEdit }: RecurringListProps) {
                 <ArrowUpRight className="w-4 h-4 text-orange-600" />
               </div>
               <div>
-                <span className="text-[10px] font-semibold text-orange-600/70 uppercase tracking-wider block">Outbound</span>
+                <span className="text-[10px] font-semibold text-orange-600/70 uppercase tracking-wider block">{t('outbound')}</span>
                 <span className="text-lg font-bold text-orange-700 leading-tight">${totalOutbound.toFixed(2)}</span>
               </div>
             </div>
@@ -127,7 +130,7 @@ export function RecurringList({ onEdit }: RecurringListProps) {
       <div>
         <div className="flex items-center gap-2 mb-3">
           <h3 className="text-xs font-bold text-foreground/60 uppercase tracking-widest">
-            Pending
+            {t('pending')}
           </h3>
           <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">
             {pendingItems.length}
@@ -136,18 +139,18 @@ export function RecurringList({ onEdit }: RecurringListProps) {
         {pendingItems.length === 0 ? (
           <div className="text-center py-10 text-muted-foreground border-2 border-dashed border-border/50 rounded-2xl bg-card/30 backdrop-blur-sm">
             <PartyPopper className="w-8 h-8 mx-auto mb-2 text-primary/40 animate-float" />
-            <p className="font-semibold">All caught up!</p>
-            <p className="text-sm opacity-60 mt-0.5">Nothing pending right now</p>
+            <p className="font-semibold">{t('allCaughtUp')}</p>
+            <p className="text-sm opacity-60 mt-0.5">{t('nothingPending')}</p>
           </div>
         ) : (
           <div>
             {pendingItems.map(({ occurrence, todo }, index) => (
-              <RecurringItem 
-                key={occurrence.id} 
+              <RecurringItem
+                key={occurrence.id}
                 index={index}
-                occurrence={occurrence} 
-                recurringTodo={todo} 
-                onEdit={onEdit} 
+                occurrence={occurrence}
+                recurringTodo={todo}
+                onEdit={onEdit}
               />
             ))}
           </div>
@@ -160,7 +163,7 @@ export function RecurringList({ onEdit }: RecurringListProps) {
           <AccordionItem value="completed" className="border-none">
             <AccordionTrigger className="hover:no-underline py-2 px-4 rounded-full bg-emerald-50/70 border border-emerald-200/50 text-emerald-700 text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
               <div className="flex items-center gap-2">
-                Completed
+                {t('completed')}
                 <span className="bg-emerald-200/50 text-emerald-800 px-2 py-0.5 rounded-full text-[10px]">
                   {completedItems.length}
                 </span>
@@ -168,12 +171,12 @@ export function RecurringList({ onEdit }: RecurringListProps) {
             </AccordionTrigger>
             <AccordionContent className="pt-3">
               {completedItems.map(({ occurrence, todo }, index) => (
-                <RecurringItem 
-                  key={occurrence.id} 
+                <RecurringItem
+                  key={occurrence.id}
                   index={index}
-                  occurrence={occurrence} 
-                  recurringTodo={todo} 
-                  onEdit={onEdit} 
+                  occurrence={occurrence}
+                  recurringTodo={todo}
+                  onEdit={onEdit}
                 />
               ))}
             </AccordionContent>

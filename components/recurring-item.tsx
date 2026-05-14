@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Edit2, Calendar } from "lucide-react";
 import { format } from "date-fns";
+import { useI18n } from "./i18n-provider";
 
 const PASTEL_THEMES = [
   { bg: "bg-violet-50/80", border: "border-violet-200/60", text: "text-violet-900", editBg: "bg-violet-100/60 hover:bg-violet-200/80 text-violet-700", checkBorder: "border-violet-300" },
@@ -25,6 +26,8 @@ interface RecurringItemProps {
 }
 
 export function RecurringItem({ index, occurrence, recurringTodo, onEdit }: RecurringItemProps) {
+  const { t } = useI18n();
+
   const toggleOccurrenceStatus = useStore((state) => state.toggleOccurrenceStatus);
   const isPending = occurrence.status === "pending";
 
@@ -66,7 +69,7 @@ export function RecurringItem({ index, occurrence, recurringTodo, onEdit }: Recu
               </h3>
               {isOverdue && (
                 <Badge variant="destructive" className="text-[10px] px-1.5 py-0 h-4 rounded-full font-semibold">
-                  Overdue
+                  {t('overdue')}
                 </Badge>
               )}
             </div>
@@ -89,11 +92,10 @@ export function RecurringItem({ index, occurrence, recurringTodo, onEdit }: Recu
         <div className="flex items-center gap-2">
           {recurringTodo.amount !== undefined && (
             <span
-              className={`text-sm font-bold tabular-nums ${
-                recurringTodo.direction === "inbound"
+              className={`text-sm font-bold tabular-nums ${recurringTodo.direction === "inbound"
                   ? "text-emerald-600"
                   : ""
-              }`}
+                }`}
             >
               {recurringTodo.direction === "inbound" ? "+" : ""}
               ${recurringTodo.amount.toFixed(2)}

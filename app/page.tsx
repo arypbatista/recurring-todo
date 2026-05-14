@@ -8,8 +8,12 @@ import { BulkAddDialog } from "@/components/bulk-add-dialog";
 import { Button } from "@/components/ui/button";
 import { Plus, Download } from "lucide-react";
 import { RecurringTodo } from "@/types";
+import { useI18n } from "@/components/i18n-provider";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export default function Home() {
+  const { t } = useI18n()
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isBulkDialogOpen, setIsBulkDialogOpen] = useState(false);
   const [editingTodo, setEditingTodo] = useState<RecurringTodo | null>(null);
@@ -39,19 +43,23 @@ export default function Home() {
             <div>
               <h1 className="text-3xl font-bold tracking-tight text-foreground leading-tight">
                 <span className="animate-float inline-block mr-1.5">🌟</span>
-                Recurring TO-DOs
+                {t("appTitle")}
               </h1>
-              <p className="text-sm text-muted-foreground mt-0.5">Keep track of what matters, month by month</p>
+              <p className="text-sm text-muted-foreground mt-0.5">{t("appSubtitle")}</p>
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="rounded-full border-2 border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/50 transition-all duration-200"
-              onClick={() => setIsBulkDialogOpen(true)}
-            >
-              <Download className="w-4 h-4 mr-1.5" />
-              Import
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                className="rounded-full border-2 border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/50 transition-all duration-200"
+                onClick={() => setIsBulkDialogOpen(true)}
+              >
+                <Download className="w-4 h-4 mr-1.5" />
+                {t('import')}
+              </Button>
+              <LanguageSwitcher />
+
+            </div>
           </div>
         </header>
 
@@ -72,7 +80,7 @@ export default function Home() {
           onClick={handleOpenAddDialog}
         >
           <Plus className="h-6 w-6" />
-          <span className="sr-only">Add Recurring Task</span>
+          <span className="sr-only">{t('addRecurringTask')}</span>
         </Button>
       </div>
 
@@ -91,7 +99,7 @@ export default function Home() {
       <footer className="relative z-10 pb-6 pt-12 text-center">
         <p className="text-sm text-muted-foreground/70 flex items-center justify-center gap-1.5">
           <span>🔒</span>
-          Your data is stored locally in your browser. Nothing is uploaded to the cloud.
+          {t('privacyNote')}
         </p>
       </footer>
     </div>
