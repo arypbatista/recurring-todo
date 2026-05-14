@@ -107,7 +107,7 @@ export function RecurringList({ onEdit }: RecurringListProps) {
       )}
 
       <div>
-        <h3 className="text-sm font-medium text-muted-foreground mb-2 uppercase tracking-wider">
+        <h3 className="text-sm font-bold text-indigo-900 mb-4 uppercase tracking-wider underline decoration-wavy decoration-yellow-400 underline-offset-4">
           Pending ({pendingItems.length})
         </h3>
         {pendingItems.length === 0 ? (
@@ -116,9 +116,10 @@ export function RecurringList({ onEdit }: RecurringListProps) {
           </div>
         ) : (
           <div>
-            {pendingItems.map(({ occurrence, todo }) => (
+            {pendingItems.map(({ occurrence, todo }, index) => (
               <RecurringItem 
                 key={occurrence.id} 
+                index={index}
                 occurrence={occurrence} 
                 recurringTodo={todo} 
                 onEdit={onEdit} 
@@ -131,13 +132,14 @@ export function RecurringList({ onEdit }: RecurringListProps) {
       {completedItems.length > 0 && (
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="completed" className="border-none">
-            <AccordionTrigger className="hover:no-underline py-2 text-sm font-medium text-muted-foreground uppercase tracking-wider">
+            <AccordionTrigger className="hover:no-underline py-2 px-4 rounded-full bg-emerald-100 text-emerald-700 text-sm font-bold uppercase tracking-wider mt-4">
               Completed ({completedItems.length})
             </AccordionTrigger>
-            <AccordionContent className="pt-2">
-              {completedItems.map(({ occurrence, todo }) => (
+            <AccordionContent className="pt-4">
+              {completedItems.map(({ occurrence, todo }, index) => (
                 <RecurringItem 
                   key={occurrence.id} 
+                  index={index}
                   occurrence={occurrence} 
                   recurringTodo={todo} 
                   onEdit={onEdit} 
