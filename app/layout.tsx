@@ -4,6 +4,8 @@ import "./globals.css";
 import { I18nProvider } from "@/components/i18n-provider";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Analytics } from "@vercel/analytics/next"
+
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -38,6 +40,8 @@ export default function RootLayout({
             {children}
           </TooltipProvider>
         </I18nProvider>
+
+        <Analytics />
       </body>
     </html>
   );
