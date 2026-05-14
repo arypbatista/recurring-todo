@@ -4,6 +4,7 @@ import { useStore } from "@/lib/store";
 import { RecurringItem } from "./recurring-item";
 import { RecurringTodo } from "@/types";
 import { format } from "date-fns";
+import { useEffect, useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface RecurringListProps {
@@ -11,9 +12,14 @@ interface RecurringListProps {
 }
 
 export function RecurringList({ onEdit }: RecurringListProps) {
-  const { occurrences, recurringTodos, currentPeriod, _hasHydrated } = useStore();
+  const { occurrences, recurringTodos, currentPeriod } = useStore();
+  const [isMounted, setIsMounted] = useState(false);
 
-  if (!_hasHydrated) {
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
     return <div className="py-8 text-center text-muted-foreground">Loading...</div>;
   }
 
