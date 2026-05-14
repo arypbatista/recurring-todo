@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recurring TO-DOs App
 
-## Getting Started
+Local-first recurring obligations tracker built with Next.js App Router, Zustand, TailwindCSS v4, and shadcn/ui.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Next.js (App Router)
+- React + TypeScript
+- Zustand
+- TailwindCSS v4
+- shadcn/ui
+- date-fns
+- Lucide React
+
+## Features
+
+- Recurring monthly task generation
+- Pending / completed tracking
+- Overdue carry-over
+- LocalStorage persistence
+- Monthly navigation
+- Optional inbound/outbound amounts
+- Monthly financial summary
+- Responsive + dark mode UI
+
+## Architecture
+
+```txt
+/app
+/components
+/lib
+/types
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Core Modules
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `types/index.ts` → shared domain models
+- `lib/store.ts` → Zustand store + persistence
+- `lib/generator.ts` → recurrence generation logic
+- `components/*` → reusable UI components
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Domain Model
 
-## Learn More
+### RecurringTodo
 
-To learn more about Next.js, take a look at the following resources:
+Defines a recurring template.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```ts
+interface RecurringTodo {
+  id: string;
+  title: string;
+  dueDay: number;
+  active: boolean;
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+  amount?: number;
+  direction?: "inbound" | "outbound";
+}
+```
 
-## Deploy on Vercel
+### Occurrence
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Represents a generated monthly instance.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```ts
+interface Occurrence {
+  id: string;
+  recurringTodoId: string;
+
+  period: string;
+  dueDate: string;
+
+  paid: boolean;
+}
+```
+
+## Generation Logic
+
+Occurrences are automatically generated:
+
+- on app initialization
+- on month navigation
+- when creating recurring items
+
+Missing months are backfilled automatically.
+
+## Development
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## Design Principles
+
+- Local-first
+- Offline-friendly
+- Minimal architecture
+- Predictable state
+- No backend required
+
+## Future Improvements
+
+- Notifications
+- Cloud sync
+- Categories/tags
+- PWA support
+- Analytics
