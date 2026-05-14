@@ -46,7 +46,7 @@ export function RecurringItem({ index, occurrence, recurringTodo, onEdit }: Recu
       className={`
         mb-2.5 rounded-2xl border-2 backdrop-blur-sm
         transition-all duration-200 ease-out
-        hover:translate-y-[-1px] hover:shadow-md
+        hover:-translate-y-px hover:shadow-md
         animate-slide-up
         ${isPending
           ? `${theme.bg} ${theme.border} ${theme.text} shadow-sm`
@@ -93,8 +93,8 @@ export function RecurringItem({ index, occurrence, recurringTodo, onEdit }: Recu
           {recurringTodo.amount !== undefined && (
             <span
               className={`text-sm font-bold tabular-nums ${recurringTodo.direction === "inbound"
-                  ? "text-emerald-600"
-                  : ""
+                ? "text-emerald-600"
+                : ""
                 }`}
             >
               {recurringTodo.direction === "inbound" ? "+" : ""}

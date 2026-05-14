@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { Baloo_2, Geist_Mono } from "next/font/google";
+import { Baloo_2, Geist_Mono, Geist } from "next/font/google";
 import "./globals.css";
 import { I18nProvider } from "@/components/i18n-provider";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const baloo = Baloo_2({
   variable: "--font-baloo",
@@ -26,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${baloo.variable} ${geistMono.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", baloo.variable, geistMono.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col">
         <I18nProvider>
