@@ -25,7 +25,7 @@ export async function generateMetadata(
   const url = origin
 
 
-  const locale = host === 'recurring-todo.vercel.app' ? 'es' : 'en'
+  const locale = host === 'recurring-todo.vercel.app' ? 'en' : 'es'
 
 
   const title = t('appTitle', locale)
