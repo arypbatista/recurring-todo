@@ -103,11 +103,11 @@ export default function Home() {
           {t('privacyNote')}
         </p>
         <p>
-          <Button variant="link" asChild>
-            <Link href="https://github.com/arypbatista/recurring-todo" target="_blank">
+          <Link href="https://github.com/arypbatista/recurring-todo" target="_blank">
+            <Button variant="link" asChild>
               Github
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </p>
       </footer>
     </div>

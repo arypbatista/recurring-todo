@@ -157,6 +157,8 @@ const translations: Record<Locale, Record<string, string>> = {
   },
 };
 
+type TranslationKey = keyof typeof translations.en;
+
 export function detectLocale(): Locale {
   if (typeof navigator === "undefined") return "en";
   const lang = navigator.language.toLowerCase();
@@ -174,5 +176,7 @@ export function t(key: string, locale: Locale, params?: Record<string, string | 
   }
   return value;
 }
+
+export type { TranslationKey };
 
 export { translations };
