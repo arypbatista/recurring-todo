@@ -43,9 +43,9 @@ export default function Home() {
               </h1>
               <p className="text-sm text-muted-foreground mt-0.5">Keep track of what matters, month by month</p>
             </div>
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               className="rounded-full border-2 border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/50 transition-all duration-200"
               onClick={() => setIsBulkDialogOpen(true)}
             >
@@ -57,7 +57,7 @@ export default function Home() {
 
         <main className="container max-w-2xl mx-auto px-5 py-4">
           <MonthNavigation />
-          
+
           <div className="mt-6">
             <RecurringList onEdit={handleOpenEditDialog} />
           </div>
@@ -66,8 +66,8 @@ export default function Home() {
 
       {/* Floating Action Button */}
       <div className="fixed bottom-8 right-8 z-50">
-        <Button 
-          size="icon" 
+        <Button
+          size="icon"
           className="h-14 w-14 rounded-full shadow-xl bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-200 hover:scale-105 animate-fab-pulse"
           onClick={handleOpenAddDialog}
         >
@@ -76,16 +76,24 @@ export default function Home() {
         </Button>
       </div>
 
-      <AddEditDialog 
-        isOpen={isDialogOpen} 
-        onOpenChange={setIsDialogOpen} 
-        editTodo={editingTodo} 
+      <AddEditDialog
+        isOpen={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+        editTodo={editingTodo}
       />
 
-      <BulkAddDialog 
+      <BulkAddDialog
         isOpen={isBulkDialogOpen}
         onOpenChange={setIsBulkDialogOpen}
       />
+
+      {/* Footer disclaimer */}
+      <footer className="relative z-10 pb-6 pt-12 text-center">
+        <p className="text-sm text-muted-foreground/70 flex items-center justify-center gap-1.5">
+          <span>🔒</span>
+          Your data is stored locally in your browser. Nothing is uploaded to the cloud.
+        </p>
+      </footer>
     </div>
   );
 }
