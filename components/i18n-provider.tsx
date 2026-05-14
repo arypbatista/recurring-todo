@@ -27,10 +27,11 @@ const I18nContext = createContext<I18nContextValue | null>(null)
 
 type I18nProviderProps = {
     children: ReactNode
+    initialLocale: Locale
 }
 
-export function I18nProvider({ children }: I18nProviderProps) {
-    const [locale, setLocale] = useState<Locale>("en")
+export function I18nProvider({ children, initialLocale }: I18nProviderProps) {
+    const [locale, setLocale] = useState<Locale>(initialLocale)
 
     useEffect(() => {
         const detected = detectLocale()
