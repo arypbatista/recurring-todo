@@ -1,67 +1,99 @@
-import { Metadata } from "next";
+import { headers } from "next/headers"
+import { Metadata, ResolvingMetadata } from "next";
 import App from "./_components/App";
+import { t } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://recurring-todo.vercel.app"),
+type Props = {
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
 
-  title: {
-    default: "Recurring TO-DOs",
-    template: "%s | Recurring TO-DOs",
-  },
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
 
-  description: "A local-first recurring obligations tracker",
-  applicationName: "Recurring TO-DOs",
+  const headersList = await headers()
 
-  keywords: ["recurring", "todo", "tracker", "obligations", "local-first"],
+  const host = headersList.get("host")
+  const protocol =
+    headersList.get("x-forwarded-proto") ||
+    (process.env.NODE_ENV === "development" ? "http" : "https")
 
-  category: "productivity",
+  const origin = `${protocol}://${host}`
 
-  robots: {
-    index: false,
-    follow: false,
-    googleBot: {
+  const url = origin
+
+
+  const locale = host === 'recurring-todo.vercel.app' ? 'es' : 'en'
+
+
+  const title = t('appTitle', locale)
+  const description = t('appSubtitle', locale)
+
+
+  return {
+    metadataBase: new URL(url),
+
+    title: {
+      default: title,
+      template: `%s | ${title}`,
+    },
+
+    description: description,
+    applicationName: title,
+
+    keywords: ["recurring", "todo", "tracker", "obligations", "local-first"],
+
+    category: "productivity",
+
+    robots: {
       index: false,
-      follow: false
+      follow: false,
+      googleBot: {
+        index: false,
+        follow: false
+      }
+    },
+
+    openGraph: {
+      title: title,
+      description: description,
+      url: origin,
+      siteName: title,
+      images: [
+        {
+          url: `${origin}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      images: [`${origin}/og-image.png`],
+    },
+
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon-32x32.png',
+      apple: '/apple-touch-icon.png',
+    },
+
+    other: {
+      "google-site-verification": "YOUR_VERIFICATION_CODE",
+      "Content-Security-Policy": "default-src 'self'; img-src 'self' data:; script-src 'none'; style-src 'none'; object-src 'none';",
     }
-  },
 
-  openGraph: {
-    title: "Recurring TO-DOs",
-    description: "A local-first recurring obligations tracker",
-    url: "https://recurring-todo.vercel.app",
-    siteName: "Recurring TO-DOs",
-    images: [
-      {
-        url: "https://recurring-todo.vercel.app/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Recurring TO-DOs",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
 
-  twitter: {
-    card: "summary_large_image",
-    title: "Recurring TO-DOs",
-    description: "A local-first recurring obligations tracker",
-    images: ["https://recurring-todo.vercel.app/og-image.png"],
-  },
 
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-32x32.png',
-    apple: '/apple-touch-icon.png',
-  },
-
-  other: {
-    "google-site-verification": "YOUR_VERIFICATION_CODE",
-    "Content-Security-Policy": "default-src 'self'; img-src 'self' data:; script-src 'none'; style-src 'none'; object-src 'none';",
   }
-
-
-
 }
 
 export default function Home() {
