@@ -39,10 +39,10 @@ export function RecurringList({ onEdit }: RecurringListProps) {
     if (aOverdue && !bOverdue) return -1;
     if (!aOverdue && bOverdue) return 1;
 
-    // 2. Due date
-    const aDueDay = a.todo.dueDay || 999;
-    const bDueDay = b.todo.dueDay || 999;
-    if (aDueDay !== bDueDay) return aDueDay - bDueDay;
+    // 2. Due date (DESC)
+    const aDueDay = a.todo.dueDay || 0;
+    const bDueDay = b.todo.dueDay || 0;
+    if (aDueDay !== bDueDay) return bDueDay - aDueDay;
 
     // 3. Creation order
     return new Date(a.todo.createdAt).getTime() - new Date(b.todo.createdAt).getTime();
@@ -53,6 +53,14 @@ export function RecurringList({ onEdit }: RecurringListProps) {
     (o) => o.status === "paid" && o.period === currentPeriod
   ).map(o => ({ occurrence: o, todo: todoMap.get(o.recurringTodoId)! }))
    .filter(item => item.todo !== undefined);
+
+  // Sort completed items similarly (Due date DESC, then creation order)
+  completedItems.sort((a, b) => {
+    const aDueDay = a.todo.dueDay || 0;
+    const bDueDay = b.todo.dueDay || 0;
+    if (aDueDay !== bDueDay) return bDueDay - aDueDay;
+    return new Date(a.todo.createdAt).getTime() - new Date(b.todo.createdAt).getTime();
+  });
 
   return (
     <div className="space-y-6">
