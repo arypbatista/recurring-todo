@@ -83,7 +83,7 @@ export function RecurringItem({ index, occurrence, recurringTodo, onEdit }: Recu
               <span className="flex items-center text-xs">
                 <Calendar className="w-3 h-3 mr-1" />
                 {occurrence.period}
-                {recurringTodo.dueDay && ` · Due ${recurringTodo.dueDay}`}
+                {recurringTodo.dueDay && ` · ${t('due')} ${recurringTodo.dueDay}`}
               </span>
             </div>
           </div>
